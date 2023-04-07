@@ -7,5 +7,5 @@ frontend https
 backend servers
     mode http
     balance roundrobin
-    server web1 54.85.89.179 check
-    server web2 54.237.27.97 check
+    server 453-web1 54.85.89.179 check
+    server 453-web2 54.237.27.97 check
