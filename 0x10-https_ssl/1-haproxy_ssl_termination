@@ -1,4 +1,5 @@
 frontend https
+    bind *:80
     bind *:443 ssl crt /etc/letsencrypt/live/www.example.com/fullchain.pem
     mode http
     default_backend servers
