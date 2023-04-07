@@ -34,9 +34,10 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 frontend www.realdavid.tech
-	bind 10.0.0.3:80
-	bind 10.0.0.3:443 ssl crt /etc/ssl/certs/realdavid.pem
+	bind *:80
+	bind *:443 ssl crt /etc/haproxy/certs/realdavid.tech.pem
 	http-request redirect scheme https unless { ssl_fc }
+	http-request set-header X-Forwarded-Proto https
 	default_backend realdavid-tech-backend
 
 backend realdavid-tech-backend
