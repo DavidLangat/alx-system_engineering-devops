@@ -10,11 +10,10 @@ defaults
 	timeout client  30s
 	timeout server  30s
 
-frontend realdavid-tech-frontend
-	bind *:80
-	bind *:443 ssl crt /etc/haproxy/certs/realdavid.tech.pem
+frontend www.realdavid.tech
+	bind 10.0.0.3:80
+	bind 10.0.0.3:443 ssl crt /etc/ssl/certs/realdavid.pem
 	http-request redirect scheme https unless { ssl_fc }
-	http-request set-header X-Forwarded-Proto https
 	default_backend realdavid-tech-backend
 
 backend realdavid-tech-backend
