@@ -14,7 +14,7 @@ function display_subdomain_info {
     for sub in "${subdomains[@]}"
     do
         record=$(dig +short "$sub.$domain")
-        type=$(dig +short "$sub.$domain" | awk '{print $NF}')
+        type=$(dig +noall +answer "$sub.$domain" | awk '{print $4}')
         echo "The subdomain $sub is a A record and points to $record"
     done
 }
