@@ -1,0 +1,21 @@
+#!/bin/bash
+
+function display_subdomain_info {
+    domain=$1
+    subdomain=$2
+
+    if [[ -z "$subdomain" ]]; then
+        subdomains=("www" "lb-01" "web-01" "web-02")
+    else
+        subdomains=("$subdomain")
+    fi
+
+    for sub in "${subdomains[@]}"
+    do
+        record=$(dig +short "$sub.$domain")
+        type=$(dig +short "$sub.$domain" | awk '{print $NF}')
+        echo "The subdomain $sub is a $type record and points to $record"
+    done
+}
+
+display_subdomain_info $1 $2
