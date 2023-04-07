@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
+#Configure your domain zone so that the subdomain www points to your load-balancer IP (lb-01).
 
 function display_subdomain_info {
     domain=$1
