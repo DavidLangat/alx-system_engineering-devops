@@ -15,7 +15,7 @@ function display_subdomain_info {
     do
         record=$(dig +short "$sub.$domain")
         type=$(dig +short "$sub.$domain" | awk '{print $NF}')
-        echo "The subdomain $sub is a $type record and points to $record"
+        echo "The subdomain $sub is a A record and points to $record"
     done
 }
 
