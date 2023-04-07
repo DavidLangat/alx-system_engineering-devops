@@ -33,15 +33,15 @@ defaults
         errorfile 502 /etc/haproxy/errors/502.http
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
+
 frontend realdavid-tech-frontend
-	bind *:80
-	bind *:443 ssl crt /etc/haproxy/certs/realdavid.tech.pem
-	http-request redirect scheme https unless { ssl_fc }
-	http-request set-header X-Forwarded-Proto https
-	default_backend realdavid-tech-backend
+        bind *:80
+        bind *:443 ssl crt /etc/haproxy/certs/realdavid.tech.pem
+        http-request redirect scheme https unless { ssl_fc }
+        http-request set-header X-Forwarded-Proto https
+        default_backend realdavid-tech-backend
 
 backend realdavid-tech-backend
-	balance roundrobin
-    	server 128191-web-01 54.85.89.179:80 check
-    	server 128191-web-02 54.237.27.97:80 check
-	
+        balance roundrobin
+        server 128191-web-01 54.85.89.179:80 check
+        server 128191-web-02 54.237.27.97:80 check
