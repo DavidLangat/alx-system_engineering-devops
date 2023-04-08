@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
 # Installs Nginx 
 
-var=$(hostname)
-new_string="error_page 404 \/custom_404.html;\n location \/redirect_me {\n return 301 \$scheme:\/\/www.google.com;"
-new_string2="server {\n\tadd_header X-Served-By $var;"
+# Install Nginx
+sudo apt update
+sudo apt install -y nginx
 
-apt-get update -y
-apt-get install nginx -y
-echo "Hello World!" > /usr/share/nginx/html/index.html
-mkdir -p /var/www/html
-echo "Ceci n'est pas une page" > /var/www/html/custom_404.html
-sudo sed -i -E "s/^[^#]+location \/ \{/$new_string/" /etc/nginx/sites-available/default
-sudo sed -i -E "s/^server \{/$new_string2/" /etc/nginx/sites-available/default
-sudo service nginx start
+# Add custom HTTP response header to Nginx config
+sudo sed -i 's/http {/http {\n    add_header X-Served-By $hostname;/g' /etc/nginx/nginx.conf
+
+# Restart Nginx service
+sudo systemctl restart nginx
