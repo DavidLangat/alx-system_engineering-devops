@@ -1,12 +1,24 @@
 #!/usr/bin/env bash
 # Installs Nginx 
-
-# Install Nginx
-sudo apt update
-sudo apt install -y nginx
-
-# Add custom HTTP response header to Nginx config
-sudo sed -i 's/http {/http {\n    add_header X-Served-By $hostname;/g' /etc/nginx/nginx.conf
-
-# Restart Nginx service
-sudo systemctl restart nginx
+sudo apt-get update
+sudo apt-get install -y nginx
+sudo ufw allow 'Nginx HTTP'
+echo "Hello World!" | sudo tee /var/www/html/index.html
+echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
+name=$(hostname)
+echo "server {
+listen 80 default_server;
+listen [::]:80 default_server;
+root /var/www/html;
+index index.html;
+add_header X-Served-By $name;
+location /redirect_me {
+return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+}
+error_page 404 /404.html;
+location = /404.html{
+internal;
+}
+}" > default
+sudo mv -f default /etc/nginx/sites-available/default
+sudo service nginx restart
