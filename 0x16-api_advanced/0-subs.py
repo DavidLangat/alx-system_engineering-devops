@@ -2,7 +2,6 @@
 """0-subs module"""
 import requests
 
-
 def number_of_subscribers(subreddit):
     """
     Queries the reddit API
