@@ -1,13 +1,11 @@
 #!/usr/bin/python3
-"""0-subs module"""
+"""0-subs module
+    Queries the reddit API
+    Output the number of subscribers
+"""
 import requests
 
 def number_of_subscribers(subreddit):
-    """
-    Queries the reddit API
-    Return: 
-        the number of subscribers
-    """
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
     headers = {
         "User-Agent": "linux:0x16.api.advanced:v1.0.0 (by /u/bdov_)"
